@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndexedDB Test</title>
+    <script src="loader.js" async></script>
+</head>
+<body>
+    <h1>IndexedDB Test</h1>
+
+    <!-- Add Data -->
+    <h2>Add Data</h2>
+    <input type="text" id="nameInput" placeholder="Enter Name">
+    <button onclick="addDataToDB()">Add Data</button>
+
+    <!-- Read Data -->
+    <h2>Read Data</h2>
+    <input type="number" id="readIdInput" placeholder="Enter ID to Read">
+    <button onclick="readDataFromDB()">Read Data</button>
+
+    <!-- Update Data -->
+    <h2>Update Data</h2>
+    <input type="number" id="updateIdInput" placeholder="Enter ID to Update">
+    <input type="text" id="updateNameInput" placeholder="Enter New Name">
+    <button onclick="updateDataInDB()">Update Data</button>
+
+    <!-- Delete Data -->
+    <h2>Delete Data</h2>
+    <input type="number" id="deleteIdInput" placeholder="Enter ID to Delete">
+    <button onclick="deleteDataFromDB()">Delete Data</button>
+
+    <script>
+        function addDataToDB() {
+            const name = document.getElementById('nameInput').value;
+            addData({ name: name });
+        }
+
+        function readDataFromDB() {
+            const id = parseInt(document.getElementById('readIdInput').value);
+            readData(id, result => {
+                if (result) {
+                    alert("Data retrieved: " + JSON.stringify(result));
+                } else {
+                    alert("Failed to retrieve data or data does not exist.");
+                }
+            });
+        }
+
+        function updateDataInDB() {
+            const id = parseInt(document.getElementById('updateIdInput').value);
+            const name = document.getElementById('updateNameInput').value;
+            updateData({ id: id, name: name });
+        }
+
+        function deleteDataFromDB() {
+            const id = parseInt(document.getElementById('deleteIdInput').value);
+            deleteData(id);
+        }
+    </script>
+</body>
+</html>
+
